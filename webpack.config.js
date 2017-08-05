@@ -2,10 +2,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const config = {
-  entry: './src/index.js',
+  entry: {
+    bundle: './src/index.js',
+    other: './src/testOtherEntry.js',
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'build.js',
+    filename: '[name].js',
   },
   module: {
     rules: [
