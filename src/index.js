@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import './main.css';
 
 const data = [1, 2, 3, 4];
 
@@ -21,3 +22,13 @@ const maxObj = d3.max(dataObj, elem => elem.value);
 const extentObj = d3.extent(dataObj, elem => elem.value);
 console.log('max from obj', maxObj);
 console.log('extent from object', extentObj);
+
+
+// Create programatically our chart
+const h = 600;
+const w = 800;
+
+const svg = d3.select('body').append('svg')
+            .attr('id', 'chart')
+            .attr('height', h)
+            .attr('width', w);
