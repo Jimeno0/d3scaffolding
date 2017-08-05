@@ -1,15 +1,9 @@
-console.log('Compiled and added botchieeeeeeees');
+import * as d3 from 'd3';
 
-const obj = {
-  a: 'a',
-  b: 'b',
-};
+const data = [1, 2, 3, 4];
 
-const es6obj = { ...obj };
+const min = d3.min(data);
+const max = d3.max(data);
 
-console.log(es6obj);
+console.log(min, max);
 
-// const arr = [1, 34];
-// const arres6 = [...arr];
-//
-// console.log(arres6);
