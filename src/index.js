@@ -39,3 +39,16 @@ svg.selectAll('.bar')
   .attr('y', (data, i) => y(i))
   .attr('height', (data, i) => y(1) - 1) // take the fisrt height and remove 1px
   .attr('width', (data, i) => x(data.value));
+
+// Get started with labels/text
+
+svg.selectAll('.bar-label')
+.data(data)
+.enter()
+.append('text')
+.classed('bar-label', true)
+  .text((data, i) => data.key)
+  .attr('x', (data, i) => x(data.value))
+  .attr('dx', (data, i) => -2)
+  .attr('y', (data, i) => y(i))
+  .attr('dy', (data, i) => y(1) * 0.5 + 6);

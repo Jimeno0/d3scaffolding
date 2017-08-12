@@ -11,3 +11,7 @@ body, html{
   fill: palevioletred;
   shape-rendering: crispEdge;
 }
+.bar-label{
+  text-anchor: end;
+  fill: papayawhip;
+}
