@@ -17,20 +17,33 @@ const extentObj = d3.extent(data, elem => elem.value);
 const h = 600;
 const w = 800;
 
+const margin = {
+  top: 20,
+  right: 20,
+  bottom: 20,
+  left: 20,
+};
+const height = h - margin.top - margin.bottom;
+const width = w - margin.left - margin.right;
 // Scalling data to fullfit svg
 const x = d3.scaleLinear()
   .domain([0, maxObj])
-  .range([0, w]);
+  .range([0, width]);
 const y = d3.scaleLinear()
   .domain([0, data.length])
-  .range([0, h]);
+  .range([0, height]);
 
 const svg = d3.select('body').append('svg')
             .attr('id', 'chart')
             .attr('height', h)
             .attr('width', w);
 
-svg.selectAll('.bar')
+const chart = svg.append('g')
+  .classed('chart-group', true)
+  .attr('transform', `translate(${margin.top},${margin.right})`);
+
+// svg.selectAll('.bar')
+chart.selectAll('.bar')
   .data(data)
   .enter()
   .append('rect')
@@ -42,7 +55,8 @@ svg.selectAll('.bar')
 
 // Get started with labels/text
 
-svg.selectAll('.bar-label')
+// svg.selectAll('.bar-label')
+chart.selectAll('.bar-label')
 .data(data)
 .enter()
 .append('text')
