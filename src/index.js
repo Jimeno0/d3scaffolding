@@ -34,7 +34,7 @@ svg.selectAll('.bar')
   .data(data)
   .enter()
   .append('rect')
-  .attr('class', 'bar')
+  .classed('bar', true)// same as .attr('class', 'bar') but can add several diferent classes
   .attr('x', 0)
   .attr('y', (data, i) => y(i))
   .attr('height', (data, i) => y(1) - 1) // take the fisrt height and remove 1px
