@@ -1,16 +1,7 @@
 import * as d3 from 'd3';
 import './main.css';
 
-const data = [1, 2, 3, 4];
-
-// const min = d3.min(data);
-// const max = d3.max(data);
-const minMax = d3.extent(data);
-console.log(minMax);
-
-// GET FORM OBJ
-
-const dataObj = [
+const data = [
   { key: 'Jimeno0', value: 28 },
   { key: 'Vilva', value: 26 },
   { key: 'Paco', value: 25 },
@@ -18,10 +9,8 @@ const dataObj = [
   { key: 'Alfon', value: 32 },
 ];
 
-const maxObj = d3.max(dataObj, elem => elem.value);
-const extentObj = d3.extent(dataObj, elem => elem.value);
-console.log('max from obj', maxObj);
-console.log('extent from object', extentObj);
+// const maxObj = d3.max(data, elem => elem.value);
+// const extentObj = d3.extent(data, elem => elem.value);
 
 
 // Create programatically our chart
@@ -32,3 +21,13 @@ const svg = d3.select('body').append('svg')
             .attr('id', 'chart')
             .attr('height', h)
             .attr('width', w);
+
+svg.selectAll('.bar')
+  .data(data)
+  .enter()
+  .append('rect')
+  .attr('class', 'bar')
+  .attr('x', 0)
+  .attr('y', (data, i) => i * 20)
+  .attr('height', 19)
+  .attr('width', (data, i) => data.value);
