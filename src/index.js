@@ -33,6 +33,14 @@ const y = d3.scaleBand()
   .domain(data.map(d => d.key))
   .range([0, height]);
 
+// Color scales:
+// Lineal
+// const linearColorScale = d3.scaleLinear()
+//  .domain([0, data.length])
+//  .range(['#DB7093', '#000000']);
+// Discret
+const discretColorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
 const svg = d3.select('body').append('svg')
             .attr('id', 'chart')
             .attr('height', h)
@@ -51,7 +59,8 @@ chart.selectAll('.bar')
   .attr('x', 0)
   .attr('y', d => y(d.key))
   .attr('height', () => y.bandwidth() - 1) // take the fisrt height and remove 1px
-  .attr('width', d => x(d.value));
+  .attr('width', d => x(d.value))
+.style('fill', (data, i) => discretColorScale(i));
 
 // Get started with labels/text
 
