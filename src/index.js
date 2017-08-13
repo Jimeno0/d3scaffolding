@@ -29,8 +29,8 @@ const width = w - margin.left - margin.right;
 const x = d3.scaleLinear()
   .domain([0, maxObj])
   .range([0, width]);
-const y = d3.scaleLinear()
-  .domain([0, data.length])
+const y = d3.scaleBand()
+  .domain(data.map(d => d.key))
   .range([0, height]);
 
 const svg = d3.select('body').append('svg')
@@ -49,9 +49,9 @@ chart.selectAll('.bar')
   .append('rect')
   .classed('bar', true)// same as .attr('class', 'bar') but can add several diferent classes
   .attr('x', 0)
-  .attr('y', (data, i) => y(i))
-  .attr('height', (data, i) => y(1) - 1) // take the fisrt height and remove 1px
-  .attr('width', (data, i) => x(data.value));
+  .attr('y', d => y(d.key))
+  .attr('height', () => y.bandwidth() - 1) // take the fisrt height and remove 1px
+  .attr('width', d => x(d.value));
 
 // Get started with labels/text
 
@@ -61,8 +61,8 @@ chart.selectAll('.bar-label')
 .enter()
 .append('text')
 .classed('bar-label', true)
-  .text((data, i) => data.key)
-  .attr('x', (data, i) => x(data.value))
-  .attr('dx', (data, i) => -2)
-  .attr('y', (data, i) => y(i))
-  .attr('dy', (data, i) => y(1) * 0.5 + 6);
+  .text((d, i) => d.key)
+  .attr('x', d => x(d.value))
+  .attr('dx', () => -2)
+  .attr('y', d => y(d.key))
+  .attr('dy', (data, i) => y.bandwidth() * 0.5 + 6);
