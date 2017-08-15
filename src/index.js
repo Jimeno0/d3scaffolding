@@ -20,7 +20,7 @@ const w = 800;
 const margin = {
   top: 20,
   right: 40,
-  bottom: 30,
+  bottom: 60,
   left: 40,
 };
 const height = h - margin.top - margin.bottom;
@@ -89,7 +89,14 @@ chart.selectAll('.bar-label')
 chart.append('g')
   .classed('x axis', true)
   .attr('transform', `translate(0,${height})`)
-  .call(xAxis);
+  .call(xAxis)
+// Rotate x axis labels
+  .selectAll('text')
+  .style('text-anchor', 'end')
+  .attr('dx', -8)
+  .attr('dy', 8)
+  .attr('transform', 'translate(0,0) rotate(-45)');
+
 
 chart.append('g')
 .classed('y axis', true)
