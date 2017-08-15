@@ -20,8 +20,8 @@ const w = 800;
 const margin = {
   top: 20,
   right: 20,
-  bottom: 20,
-  left: 20,
+  bottom: 40,
+  left: 90,
 };
 const height = h - margin.top - margin.bottom;
 const width = w - margin.left - margin.right;
@@ -41,14 +41,20 @@ const y = d3.scaleBand()
 // Discret
 const discretColorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
+// Set the axis
+const xAxis = d3.axisBottom(x);
+
+const yAxis = d3.axisLeft(y);
+
+//
 const svg = d3.select('body').append('svg')
-            .attr('id', 'chart')
-            .attr('height', h)
-            .attr('width', w);
+  .attr('id', 'chart')
+  .attr('height', h)
+  .attr('width', w);
 
 const chart = svg.append('g')
   .classed('chart-group', true)
-  .attr('transform', `translate(${margin.top},${margin.right})`);
+  .attr('transform', `translate(${margin.left},${margin.top})`);
 
 // svg.selectAll('.bar')
 chart.selectAll('.bar')
@@ -70,8 +76,20 @@ chart.selectAll('.bar-label')
 .enter()
 .append('text')
 .classed('bar-label', true)
-  .text((d, i) => d.key)
+  .text((d, i) => d.value)
   .attr('x', d => x(d.value))
   .attr('dx', () => -2)
   .attr('y', d => y(d.key))
   .attr('dy', (data, i) => y.bandwidth() * 0.5 + 6);
+
+// Append the axis
+chart.append('g')
+  .classed('x axis', true)
+  .attr('transform', `translate(0,${height})`)
+  .call(xAxis);
+
+chart.append('g')
+.classed('y axis', true)
+.attr('transform', 'translate(0,0)')
+.call(yAxis);
+

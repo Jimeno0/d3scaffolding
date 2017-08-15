@@ -15,3 +15,7 @@ body, html{
   text-anchor: end;
   fill: papayawhip;
 }
+
+.axis path, .axis line{
+   shape-rendering: crispEdge;
+}
