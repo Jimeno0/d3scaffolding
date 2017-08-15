@@ -12,8 +12,8 @@ body, html{
   shape-rendering: crispEdge;
 }
 .bar-label{
-  text-anchor: end;
-  fill: papayawhip;
+  text-anchor: middle;
+  fill: black;
 }
 
 .axis path, .axis line{

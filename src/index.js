@@ -19,26 +19,20 @@ const w = 800;
 
 const margin = {
   top: 20,
-  right: 20,
-  bottom: 40,
-  left: 90,
+  right: 40,
+  bottom: 30,
+  left: 40,
 };
 const height = h - margin.top - margin.bottom;
 const width = w - margin.left - margin.right;
 // Scalling data to fullfit svg
-const x = d3.scaleLinear()
-  .domain([0, maxObj])
-  .range([0, width]);
-const y = d3.scaleBand()
+const x = d3.scaleBand()
   .domain(data.map(d => d.key))
-  .range([0, height]);
+  .range([0, width]);
+const y = d3.scaleLinear()
+  .domain([0, maxObj])
+  .range([height, 0]);
 
-// Color scales:
-// Lineal
-// const linearColorScale = d3.scaleLinear()
-//  .domain([0, data.length])
-//  .range(['#DB7093', '#000000']);
-// Discret
 const discretColorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
 // Set the axis
@@ -62,10 +56,10 @@ chart.selectAll('.bar')
   .enter()
   .append('rect')
   .classed('bar', true)// same as .attr('class', 'bar') but can add several diferent classes
-  .attr('x', 0)
-  .attr('y', d => y(d.key))
-  .attr('height', () => y.bandwidth() - 1) // take the fisrt height and remove 1px
-  .attr('width', d => x(d.value))
+  .attr('x', d => x(d.key))
+  .attr('y', d => y(d.value))
+  .attr('height', d => height - y(d.value)) // take the fisrt height and remove 1px
+  .attr('width', d => x.bandwidth())
 .style('fill', (data, i) => discretColorScale(i));
 
 // Get started with labels/text
@@ -77,10 +71,10 @@ chart.selectAll('.bar-label')
 .append('text')
 .classed('bar-label', true)
   .text((d, i) => d.value)
-  .attr('x', d => x(d.value))
+  .attr('x', d => x(d.key) + (x.bandwidth() / 2))
   .attr('dx', () => -2)
-  .attr('y', d => y(d.key))
-  .attr('dy', (data, i) => y.bandwidth() * 0.5 + 6);
+  .attr('y', d => y(d.value))
+  .attr('dy', -6);
 
 // Append the axis
 chart.append('g')
