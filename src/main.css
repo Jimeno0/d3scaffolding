@@ -19,3 +19,9 @@ body, html{
 .axis path, .axis line{
    shape-rendering: crispEdge;
 }
+
+.gridline path, .gridline line{
+    stroke: #ccc;
+   shape-rendering: crispEdge;
+}
+

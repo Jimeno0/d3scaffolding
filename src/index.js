@@ -28,6 +28,7 @@ const width = w - margin.left - margin.right;
 // Scalling data to fullfit svg
 const x = d3.scaleBand()
   .domain(data.map(d => d.key))
+  .padding(0.2)
   .range([0, width]);
 const y = d3.scaleLinear()
   .domain([0, maxObj])
@@ -40,6 +41,9 @@ const xAxis = d3.axisBottom(x);
 
 const yAxis = d3.axisLeft(y);
 
+// Add gridLines
+const yGridLines = d3.axisLeft(y).tickSize(-width).tickFormat('');
+
 //
 const svg = d3.select('body').append('svg')
   .attr('id', 'chart')
@@ -49,6 +53,11 @@ const svg = d3.select('body').append('svg')
 const chart = svg.append('g')
   .classed('chart-group', true)
   .attr('transform', `translate(${margin.left},${margin.top})`);
+
+chart.append('g')
+  .classed('gridline', true)
+  .attr('transform', 'translate(0,0)')
+  .call(yGridLines);
 
 // svg.selectAll('.bar')
 chart.selectAll('.bar')
