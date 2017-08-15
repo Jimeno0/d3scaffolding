@@ -20,8 +20,8 @@ const w = 800;
 const margin = {
   top: 20,
   right: 40,
-  bottom: 60,
-  left: 40,
+  bottom: 80,
+  left: 70,
 };
 const height = h - margin.top - margin.bottom;
 const width = w - margin.left - margin.right;
@@ -103,3 +103,18 @@ chart.append('g')
 .attr('transform', 'translate(0,0)')
 .call(yAxis);
 
+// Add axis description(ages & name words)
+chart.select('.y.axis')
+  .append('text')
+  .classed('axis-description', true)
+  .attr('text-anchor', 'middle')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('transform', `translate(-40,${height / 2}) rotate(-90)`)
+  .text('Ages');
+
+chart.select('.x.axis')
+  .append('text')
+  .classed('axis-description', true)
+  .attr('transform', `translate(${width / 2},60)`)
+  .text('name');

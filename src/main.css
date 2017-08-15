@@ -24,4 +24,8 @@ body, html{
     stroke: #ccc;
    shape-rendering: crispEdge;
 }
+.axis-description{
+  fill: black;
+  font-size: 18px;
+}
 
